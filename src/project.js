@@ -5,10 +5,12 @@ class Project {
     const splitInfoRegex = evaluateRegex(/,/g);
     const idRegex = evaluateRegex(/(\d+)$/g);
     const numberYearRegex = evaluateRegex(/(\d+)/g);
-    const firstLastNamesRegex = evaluateRegex(/^(\w+).*\s(\w+)$/);
+    const firstLastNamesRegex = evaluateRegex(/\s/g);
     const [number, year] = título.match(numberYearRegex);
     const authors = autor.split(splitInfoRegex).map((author) => {
-      const [, first, last] = firstLastNamesRegex.exec(author.trim());
+      const names = author.trim().split(firstLastNamesRegex);
+      const first = names.shift();
+      const last = names.pop();
       return { nome: [first, last].join(" ") };
     });
     const indexers = indexadoresnorma
